@@ -140,7 +140,7 @@ export default {
         this.$store.dispatch("setHeight", this.height);
         this.$store.dispatch("sendHeight", this.height);
 
-        location.replace(document.URL + "redirect");
+        location.replace(document.URL + "home");
       } else {
         this.$refs.appAlert.showAlert();
       }

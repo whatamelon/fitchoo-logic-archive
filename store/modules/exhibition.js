@@ -3,6 +3,14 @@ const exhibition = {
     return {
       EXHIBITIONS: [
         {
+          code: "15re30",
+          thumbnail: "/exhibition/longOnepieceWinter.png",
+          title: "니트 롱윈피스",
+          subtitle: "가을겨울 포근포근",
+          hashtags: ["길지않고예쁘게  ","키작녀길이로보기!"],
+          cardType: "B"
+        },
+        {
           code: "00pe29",
           thumbnail: "/exhibition/wideSlacks.jpg",
           title: "유행 와이드핏 슬랙스",

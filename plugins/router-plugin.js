@@ -86,19 +86,19 @@ export default ({ app, store }) => {
       store.dispatch("setModel", model);
     }
 
-    if (localStorage.getItem("modelId")) {
-      const modelId = JSON.parse(localStorage.getItem("modelId"));
-      console.log("겟모델함.");
-      console.log(modelId);
-      await store.dispatch("getModelInfo", modelId);
-    }
+    // if (localStorage.getItem("modelId")) {
+    //   const modelId = JSON.parse(localStorage.getItem("modelId"));
+    //   console.log("겟모델함.");
+    //   console.log(modelId);
+    //   await store.dispatch("getModelInfo", modelId);
+    // }
 
 
-    if (localStorage.getItem("product")) {
-      const product = JSON.parse(localStorage.getItem("product"));
-      store.dispatch("setProductInfo", product);
-      console.log("새로운상품세팅함");
-    }
+    // if (localStorage.getItem("product")) {
+    //   const product = JSON.parse(localStorage.getItem("product"));
+    //   store.dispatch("setProductInfo", product);
+    //   console.log("새로운상품세팅함");
+    // }
 
     next();
   });

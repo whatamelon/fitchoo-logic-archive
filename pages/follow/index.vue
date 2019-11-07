@@ -327,12 +327,12 @@ export default {
 
     // by shlee for app : avoid 'openAppDownloadModal' popup
     // alert("check OS type 3 (index vue): " + window.OsType);
-    if (!(window.OsType == "android" || window.OsType == "ios")) {
-      if (!localStorage.getItem("lastTime")) {
-        this.$amplitude.getInstance().logEvent("view modal CTA-app");
-        this.$store.dispatch("openAppDownloadModal");
-      }
-    }
+    // if (!(window.OsType == "android" || window.OsType == "ios")) {
+    //   if (!localStorage.getItem("lastTime")) {
+    //     this.$amplitude.getInstance().logEvent("view modal CTA-app");
+    //     this.$store.dispatch("openAppDownloadModal");
+    //   }
+    // }
 
     const lastTime = localStorage.getItem("lastTime");
     const now = new Date().getTime();

@@ -288,7 +288,7 @@ export default {
           await this.$store.dispatch("sendHeight", localStorage.height);
           await this.$store.dispatch("setUserInfo");
           localStorage.showAppDownload = 1;
-          this.$router.push("/model");
+          this.$router.push("/home");
         } else if (res.message == "email collision") {
           this.alertMessage = "이미 사용중인 이메일입니다.";
           this.showAlert();

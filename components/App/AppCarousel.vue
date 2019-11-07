@@ -21,6 +21,10 @@ export default {
     return {
       someList:[
           {
+            image : '/carousel/slideLongOnepieceWinter.jpg',
+            code : '15re30'
+          },
+          {
             image : '/carousel/slideWideSlacks.jpg',
             code : '00pe29'
           },
@@ -35,11 +39,7 @@ export default {
           {
             image : '/carousel/slideAnimal.jpg',
             code : '15re24'
-          },
-          {
-            image : '/carousel/slideHiWaist.jpg',
-            code : '15re22'
-          },
+          }
         ],
         options: {
           currentPage: 0,

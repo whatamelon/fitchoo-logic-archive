@@ -74,20 +74,25 @@ export default {
         const recentModelId = JSON.parse(localStorage.recentModelId);
         const newSetModel = recentModelId[recentModelId.length -2];
 
+        const recentProductId = JSON.parse(localStorage.recentProductId);
+        const newSetProduct = recentProductId[recentProductId.length -2];
+
         if (newSetModel == '' ||
         newSetModel == null) {
           console.log("어디냐");
         localStorage.setItem("backButton","1");
-        this.$router.go(-2);
+        this.$router.go(-1);
         }
         else {
           console.log("어디이이야~");
         this.$store.dispatch("setModel", newSetModel);
         localStorage.setItem("model", JSON.stringify(newSetModel));
+        this.$store.dispatch("setProductInfo", newSetProduct);
+        localStorage.setItem("product", JSON.stringify(newSetProduct));
       
         localStorage.setItem("backButton","1");
 
-        this.$router.go(-2);
+        this.$router.go(-1);
         }
         // }
        }
@@ -102,7 +107,7 @@ export default {
         localStorage.setItem("backButton","1");
 
         
-        this.$router.go(-2);
+        this.$router.go(-1);
        }
       }
       else {

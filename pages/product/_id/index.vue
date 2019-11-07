@@ -339,7 +339,6 @@ export default {
     
   mounted() {
 
-
     if(localStorage.getItem("backButton") == "1") {
       localStorage.removeItem("backButton");
       const recentModelId = JSON.parse(localStorage.recentModelId);
@@ -347,10 +346,20 @@ export default {
 
     localStorage.setItem("recentModelId", JSON.stringify(recentModelId));
 
-    // const recentProductId = JSON.parse(localStorage.recentProductId);
-    // recentProductId.pop();
+    const recentProductId = JSON.parse(localStorage.recentProductId);
+    recentProductId.pop();
 
-    // localStorage.setItem("recentProductId", JSON.stringify(recentProductId));
+    localStorage.setItem("recentProductId", JSON.stringify(recentProductId));
+    }
+    else {
+      const recentProductId1 = JSON.parse(localStorage.recentProductId);
+      recentProductId1.push(this.$store.getters.PRODUCT_INFO);
+      localStorage.recentProductId = JSON.stringify(recentProductId1);
+
+      const recentModelId1 = JSON.parse(localStorage.recentModelId);
+      recentModelId1.push(this.$store.getters.MODEL_INFO);
+      localStorage.recentModelId = JSON.stringify(recentModelId1);
+
     }
 
     var heightModelsIsHere = Object.values(this.$store.getters.HEIGHT_MODELS);

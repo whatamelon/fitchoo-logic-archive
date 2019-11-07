@@ -190,7 +190,7 @@ export default {
       }, 200);
     },
 
-    toDetailPage() {
+    async toDetailPage() {
       if (this.$route.name.includes("model-id")) {
         this.$amplitude
           .getInstance()
@@ -275,11 +275,14 @@ export default {
 
       const product = this.product;
       const recentProducts = JSON.parse(localStorage.recentProducts);
-      localStorage.setItem('modelId', product.modelId);
+      // localStorage.setItem('modelId', product.modelId);
+      
+      await this.$store.dispatch("getModelInfo", product.modelId);
+      console.log(product.modelId)
 
       localStorage.setItem('cat1',product.cat1);
       localStorage.setItem('cat2',product.cat2);
-      localStorage.setItem('product_id' , product.itemId);
+      // localStorage.setItem('product_id' , product.itemId);
 
       const isIncluded =
         recentProducts.filter(product => product.itemId == this.product.itemId)
@@ -314,7 +317,9 @@ export default {
           this.$route.name.includes("exhibition") ||
           this.$route.name.includes("model") 
       ) {
-      this.$router.push("/product");
+      this.$store.dispatch("setModel",this.$store.getters.MODEL_INFO);
+      console.log(this.$store.getters.MODEL_INFO)
+      this.$router.push("/product/" + product.itemId);
       console.log(heart);
       }
       else {

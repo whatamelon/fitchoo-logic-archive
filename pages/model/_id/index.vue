@@ -5,9 +5,9 @@
     <!-- <AppSpinner v-if="IS_LOADING" /> -->
 
     <LoginAlertModal />
-    <AppDownloadModal
+    <!-- <AppDownloadModal
       ref="AppDownloadModal"
-     />
+     /> -->
 
     <b-alert
       class="alert"
@@ -185,8 +185,6 @@ import AppProduct from "@/components/App/AppProduct";
 import AppSpinner from "@/components/App/AppSpinner";
 import AppSpinner2 from "@/components/App/AppSpinner2";
 import LoginAlertModal from "@/components/Modal/LoginAlertModal";
-import AppDownloadModal from "@/components/Modal/AppDownloadModal";
-
 import NoSSR from "vue-no-ssr";
 
 export default {
@@ -197,7 +195,6 @@ export default {
     AppSpinner,
     AppSpinner2,
     LoginAlertModal,
-    AppDownloadModal,
 
     "no-ssr": NoSSR
   },
@@ -651,25 +648,25 @@ methods: {
 
     console.log(viewerFooter);
 
-        if (localStorage.getItem("showAppDownload") ) {
-        this.$store.dispatch("openAppDownloadModal",true);
-        localStorage.setItem("showAppDownload" , "0");
-    }
-    if (localStorage.getItem("showAppDownload") == 0) {
-      this.$store.dispatch("openAppDownloadModal",false);
-    }
+  //       if (localStorage.getItem("showAppDownload") ) {
+  //       this.$store.dispatch("openAppDownloadModal",true);
+  //       localStorage.setItem("showAppDownload" , "0");
+  //   }
+  //   if (localStorage.getItem("showAppDownload") == 0) {
+  //     this.$store.dispatch("openAppDownloadModal",false);
+  //   }
 
-   if ( this.$store.dispatch("openAppDownloadModal",true)) {
-        localStorage.removeItem("showAppDownload");
-    }
+  //  if ( this.$store.dispatch("openAppDownloadModal",true)) {
+  //       localStorage.removeItem("showAppDownload");
+  //   }
 
-    if (  
-      !(window.OsType == "android" || window.OsType == "ios")) {
-         if (!localStorage.getItem("lastTime")) {
-        this.$amplitude.getInstance().logEvent("view modal CTA-app");
-        this.$store.dispatch("openAppDownloadModal" ,true);
-    }
-    }
+  //   if (  
+  //     !(window.OsType == "android" || window.OsType == "ios")) {
+  //        if (!localStorage.getItem("lastTime")) {
+  //       this.$amplitude.getInstance().logEvent("view modal CTA-app");
+  //       this.$store.dispatch("openAppDownloadModal" ,true);
+  //   }
+  //   }
 
   
     const lastTime = localStorage.getItem("lastTime");

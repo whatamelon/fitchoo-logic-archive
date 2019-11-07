@@ -189,10 +189,28 @@ export default {
       }, 200);
     },
 
-    toDetailPage() {
+   async toDetailPage() {
+      if (this.$route.name.includes("model-id")) {
+        this.$amplitude
+          .getInstance()
+          .logEvent("click products", { clickedPage: "모델상세" });
+      } else if (this.$route.name.includes("exhibition")) {
+        this.$amplitude
+          .getInstance()
+          .logEvent("click products", { clickedPage: "기획전" });
+      } else if (this.$route.name.includes("collection")) {
+        this.$amplitude
+          .getInstance()
+          .logEvent("click products", { clickedPage: "모아보기" });
+      } else if (this.$route.name.includes("saved")) {
+        this.$amplitude
+          .getInstance()
+          .logEvent("click products", { clickedPage: "찜" });
+      } else if (this.$route.name.includes("home")) {
         this.$amplitude
           .getInstance()
           .logEvent("click products", { clickedPage: "홈" });
+      }
 
       const itemId = this.product.itemId.toString();
       const heart = this.saved ? "1" : "0";
@@ -256,11 +274,14 @@ export default {
 
       const product = this.product;
       const recentProducts = JSON.parse(localStorage.recentProducts);
-      localStorage.setItem('modelId', product.modelId);
+      // localStorage.setItem('modelId', product.modelId);
+      
+      await this.$store.dispatch("getModelInfo", product.modelId);
+      console.log(product.modelId)
 
       localStorage.setItem('cat1',product.cat1);
       localStorage.setItem('cat2',product.cat2);
-      localStorage.setItem('product_id' , product.itemId);
+      // localStorage.setItem('product_id' , product.itemId);
 
       const isIncluded =
         recentProducts.filter(product => product.itemId == this.product.itemId)
@@ -290,13 +311,11 @@ export default {
       if (this.$route.name == null ) {
         window.open(product.linkUrl);
       }
-     else  if(this.$route.name.includes("collection") ||
-          this.$route.name.includes("collection1") ||
-          this.$route.name.includes("exhibition") ||
-          this.$route.name.includes("model") ||
-          this.$route.name.includes("home") 
+     else  if(this.$route.name.includes("home")
       ) {
-      this.$router.push("/product");
+      this.$store.dispatch("setModel",this.$store.getters.MODEL_INFO);
+      console.log(this.$store.getters.MODEL_INFO)
+      this.$router.push("/product/" + product.itemId);
       console.log(heart);
       }
       else {
