@@ -3,7 +3,7 @@
   <main class="product-detail-container">
 
     
-    <!-- <AppSpinner v-if="IS_LOADING" /> -->
+    <AppSpinner v-if="IS_LOADING" />
 
         <div class="product-main">
             <div class="product-main-image-container">
@@ -150,12 +150,12 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import AppProductPageProduct from "@/components/App/AppProductPageProduct";
-// import AppSpinner from "@/components/App/AppSpinner";
+import AppSpinner from "@/components/App/AppSpinner";
 
 export default {
   components: {
-    AppProductPageProduct
-    // AppSpinner
+    AppProductPageProduct,
+    AppSpinner
   },
 
   transition ( to, from  ) {
@@ -165,8 +165,15 @@ export default {
     else if (localStorage.getItem("routerStack").includes("model")) {
       return 'slideRight'
     }
-    else if (localStorage.getItem("previousPage")=="product") {
-      return 'nothing'
+    else if (to.name == "home"
+            || to.name == "collection"
+            || to.name == "collection1" 
+            || to.name == "exhibition-id" 
+            || from.name == "home"
+            || from.name == "collection"
+            || from.name == "collection1" 
+            || from.name == "exhibition-id") {
+      return 'slideRight'
     }
     else {
       return 'nothing'
@@ -187,7 +194,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      // "IS_LOADING",
+      "IS_LOADING",
       "IMAGE_URL",
       "MODEL_PRODUCTS",
       "MODELS",
@@ -335,6 +342,17 @@ export default {
 
   created() {
     this.isSaved();
+    
+    if( localStorage.getItem("previousPage")=="home" ||
+        localStorage.getItem("previousPage")=="collection" ||
+        localStorage.getItem("previousPage")=="collection1" ||
+        localStorage.getItem("previousPage")=="model-id" ||
+        localStorage.getItem("previousPage")=="exhibition-id"  ) {
+        this.$store.dispatch("startLoading");
+        setTimeout(() => {
+          this.$store.dispatch("endLoading");
+        }, 500);
+    }
   },
     
   mounted() {
@@ -553,7 +571,6 @@ export default {
     localStorage.removeItem('productCategory');
     }
     this.$store.dispatch("showLogo");
-    // this.$store.dispatch("startLoading");
     next();
   }
   };

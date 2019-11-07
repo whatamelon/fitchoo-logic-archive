@@ -306,6 +306,10 @@ export default {
       ) {
       this.$store.dispatch("setModel",this.$store.getters.MODEL_INFO);
       console.log(this.$store.getters.MODEL_INFO)
+        this.$store.dispatch("startLoading");
+        setTimeout(() => {
+          this.$store.dispatch("endLoading");
+        }, 500);
       this.$router.push("/product/" + product.itemId);
       console.log(heart);
       }

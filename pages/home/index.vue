@@ -1,4 +1,6 @@
 <template>
+<transition>
+
     <main class="home-container">
         <div class="carousel__skeleton"></div>
         <AppCarousel></AppCarousel>
@@ -165,6 +167,7 @@
 
 
     </main>
+</transition>
 </template>
 
 <script>
@@ -175,6 +178,7 @@ import HomeProduct2 from "@/components/Home/HomeProduct2";
 import HomeProduct3 from "@/components/Home/HomeProduct3";
 import HomeMyModel from "@/components/Home/HomeMyModel";
 import HomeFooter from "@/components/Home/HomeFooter";
+import AppSpinner from "@/components/App/AppSpinner";
 
 export default {
     components: {
@@ -183,9 +187,19 @@ export default {
         HomeProduct2,
         HomeProduct3,
         HomeMyModel,
-        HomeFooter
+        HomeFooter,
+        AppSpinner
     },
 
+  transition ( to, from  ) {
+    if (localStorage.getItem("previousPage")=="model-id" ||
+        localStorage.getItem("previousPage")=="product-id" ) {
+      return 'slideLeft'
+    }
+    else {
+      return 'nothing'
+    }
+  },
 
   data() {
     return {

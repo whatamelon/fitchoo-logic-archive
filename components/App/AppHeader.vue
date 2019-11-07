@@ -91,7 +91,11 @@ export default {
         localStorage.setItem("product", JSON.stringify(newSetProduct));
       
         localStorage.setItem("backButton","1");
-
+        
+        this.$store.dispatch("startLoading");
+        setTimeout(() => {
+          this.$store.dispatch("endLoading");
+        }, 500);
         this.$router.go(-1);
         }
         // }
@@ -106,7 +110,6 @@ export default {
       
         localStorage.setItem("backButton","1");
 
-        
         this.$router.go(-1);
        }
       }
