@@ -3,6 +3,8 @@
   <main class="product-detail-container">
 
     
+    <AppGoShop v-if="IS_GO_SHOP" />
+
     <AppSpinner v-if="IS_LOADING" />
 
         <div class="product-main">
@@ -47,7 +49,7 @@
                       {{ separateThousand(PRODUCT_INFO.price) }}</span>
             </div>
             <div class="product-link"
-                              @click="toDetailPage(PRODUCT_INFO.linkUrl)">         
+                              v-on:click="toDetailPage(PRODUCT_INFO.linkUrl)">         
                 <div class="product-link__skeleton"></div>        
                 <button class="button-link">
                   상품 보러가기
@@ -151,11 +153,13 @@
 import { mapGetters, mapActions } from "vuex";
 import AppProductPageProduct from "@/components/App/AppProductPageProduct";
 import AppSpinner from "@/components/App/AppSpinner";
+import AppGoShop from "@/components/App/AppGoShop";
 
 export default {
   components: {
     AppProductPageProduct,
-    AppSpinner
+    AppSpinner,
+    AppGoShop
   },
 
   transition ( to, from  ) {
@@ -194,6 +198,7 @@ export default {
 
   computed: {
     ...mapGetters([
+      "IS_GO_SHOP",
       "IS_LOADING",
       "IMAGE_URL",
       "MODEL_PRODUCTS",
@@ -555,7 +560,14 @@ export default {
       }
 
       console.log("응페이지로갔어~");
-        window.open(linkUrl);
+         this.$store.dispatch("startGoShop");
+          setTimeout(() => {
+          this.$store.dispatch("endGoShop");
+          }, 2000);
+
+          setTimeout(() => {
+          window.open(linkUrl);
+          }, 2100);
     }
   },
 
@@ -571,6 +583,7 @@ export default {
     localStorage.removeItem('productCategory');
     }
     this.$store.dispatch("showLogo");
+    this.$store.dispatch("endGoShop");
     next();
   }
   };

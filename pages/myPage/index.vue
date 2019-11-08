@@ -15,6 +15,7 @@
   style="visibility:hidden;display:none;border:none;height:0px;width:0px;max-width: 0px;max-height: 0px;">
   </iframe>
 </noscript> -->
+  <AppSpinner3 v-if="!IS_WAIT"/>
     <AppLoginSheet />
     <HeightEditModal :title="'내 키를 입력해주세요.'" />
     <LoginAlertModal />
@@ -83,6 +84,7 @@
 import AppLoginSheet from "@/components/App/AppLoginSheet";
 import InputModal from "@/components/Modal/InputModal";
 import LoginAlertModal from "@/components/Modal/LoginAlertModal";
+import AppSpinner3 from "@/components/App/AppSpinner3";
 
 import { mapGetters, mapActions } from "vuex";
 
@@ -121,7 +123,8 @@ export default {
   components: {
     AppLoginSheet,
     HeightEditModal: InputModal,
-    LoginAlertModal
+    LoginAlertModal,
+    AppSpinner3
   },
 
   data() {
@@ -129,7 +132,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["IS_LOGGED_IN", "USER_HEIGHT", "USER_EMAIL"])
+    ...mapGetters([
+    "IS_LOGGED_IN", 
+    "USER_HEIGHT", 
+    "USER_EMAIL",
+    "IS_WAIT"
+    ])
   },
 
   asyncData({ store, next }) {
@@ -143,6 +151,8 @@ export default {
 
   created() {
     
+    this.$store.dispatch("startWait");
+
         const recentModelId = JSON.parse(localStorage.recentModelId);
         recentModelId.length = 0;
         localStorage.recentModelId = JSON.stringify(recentModelId);

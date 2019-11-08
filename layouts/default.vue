@@ -27,17 +27,7 @@ export default {
   components: {
     AppHeader,
     AppBottomNav
-  },
-
-    transition ( to, from  ) {
-    if (localStorage.getItem("previousPage")=="model-id" ||
-        this.route.name.includes("model") ) {
-      return 'slideLeft'
-    }
-    else {
-      return 'nothing'
-    }
-  },
+  }
 };
 </script>
 

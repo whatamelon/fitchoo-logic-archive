@@ -3,6 +3,7 @@ const app = {
     return {
       IMAGE_URL: "https://s3.ap-northeast-2.amazonaws.com/image.fitchoo",
       IS_LOADING: false,
+      IS_WAIT: false,
       SHOW_MODAL: false,
       SHOW_INTRO_MODAL:false,
       SHOW_LOGIN_ALERT_MODAL: false,
@@ -17,7 +18,8 @@ const app = {
         heightRange: 3,
         sortOrder: "recent",
         priceRange: "all"
-      }
+      },
+    IS_GO_SHOP:false
     };
   },
 
@@ -28,6 +30,10 @@ const app = {
 
     IS_LOADING: state => {
       return state.IS_LOADING;
+    },
+
+    IS_WAIT: state => {
+      return state.IS_WAIT;
     },
 
     SHOW_MODAL: state => {
@@ -72,12 +78,20 @@ const app = {
 
     ACTIVE_FILTER: state => {
       return state.ACTIVE_FILTER;
+    },
+
+    IS_GO_SHOP: state => {
+      return state.IS_GO_SHOP;
     }
   },
 
   mutations: {
     SET_IS_LOADING(state, payload = false) {
       state.IS_LOADING = payload;
+    },
+
+    SET_IS_WAIT(state, payload = false) {
+      state.IS_WAIT = payload;
     },
 
     SET_SHOW_MODAL(state, payload) {
@@ -122,7 +136,11 @@ const app = {
 
     SET_ACTIVE_FILTER(state, payload) {
       state.ACTIVE_FILTER = payload;
-    }
+    },
+
+    SET_IS_GO_SHOP(state, payload = false) {
+      state.IS_GO_SHOP = payload;
+    },
   },
 
   actions: {
@@ -134,6 +152,14 @@ const app = {
 
     endLoading({ commit }) {
       commit("SET_IS_LOADING", false);
+    },
+
+    startWait({ commit }) {
+      commit("SET_IS_WAIT", true);
+    },
+
+    endWait({ commit }) {
+      commit("SET_IS_WAIT", false);
     },
 
     openModal({ commit }) {
@@ -230,7 +256,16 @@ const app = {
 
     setActiveFilter({ commit }, payload) {
       commit("SET_ACTIVE_FILTER", payload);
-    }
+    },
+    
+    startGoShop({ commit }) {
+      commit("SET_IS_GO_SHOP", true);
+    },    
+
+    endGoShop({ commit }) {
+      commit("SET_IS_GO_SHOP", false);
+    },
+
   }
 };
 

@@ -184,7 +184,6 @@ const USER = {
             commit("SET_USER_HEIGHT", null);
             commit("SET_IS_LOGGED_IN", false);
             commit("SET_MODELS", []);
-            commit("SET_MODELS_REMAIN", []);
             commit("SET_RANDOM_MODEL", []);
             commit("SET_FOLLOWING_MODELS", []);
             window.$nuxt.$router.push("/");
@@ -194,7 +193,6 @@ const USER = {
             commit("SET_USER_HEIGHT", null);
             commit("SET_IS_LOGGED_IN", false);
             commit("SET_MODELS", []);
-            commit("SET_MODELS_REMAIN", []);
             commit("SET_RANDOM_MODEL", []);
             commit("SET_FOLLOWING_MODELS", []);
             window.$nuxt.$router.push("/");
