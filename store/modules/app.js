@@ -18,8 +18,7 @@ const app = {
         heightRange: 3,
         sortOrder: "recent",
         priceRange: "all"
-      },
-    IS_GO_SHOP:false
+      }
     };
   },
 
@@ -78,10 +77,6 @@ const app = {
 
     ACTIVE_FILTER: state => {
       return state.ACTIVE_FILTER;
-    },
-
-    IS_GO_SHOP: state => {
-      return state.IS_GO_SHOP;
     }
   },
 
@@ -136,11 +131,7 @@ const app = {
 
     SET_ACTIVE_FILTER(state, payload) {
       state.ACTIVE_FILTER = payload;
-    },
-
-    SET_IS_GO_SHOP(state, payload = false) {
-      state.IS_GO_SHOP = payload;
-    },
+    }
   },
 
   actions: {
@@ -256,15 +247,7 @@ const app = {
 
     setActiveFilter({ commit }, payload) {
       commit("SET_ACTIVE_FILTER", payload);
-    },
-    
-    startGoShop({ commit }) {
-      commit("SET_IS_GO_SHOP", true);
-    },    
-
-    endGoShop({ commit }) {
-      commit("SET_IS_GO_SHOP", false);
-    },
+    }
 
   }
 };

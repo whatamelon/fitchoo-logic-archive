@@ -224,7 +224,8 @@ export default {
       "HOME_PRODUCTS3",
       "FIRST_CATEGORY",
       "SECOND_CATEGORY",
-      "MODELS"
+      "MODELS",
+    "USER_EMAIL",
     ]),
 
     hasMoreData() {
@@ -306,6 +307,7 @@ export default {
     store.dispatch("getHomeProducts2",params2);
     
     store.dispatch("getHomeProducts3",params3);
+      // store.dispatch("setUserInfo");
     
     }
 
@@ -315,6 +317,17 @@ export default {
   },
 
 created() {
+
+  // this.$amplitudeClient.setUserId(this.$store.getters.USER_EMAIL);
+  console.log(this.$store.getters.USER_EMAIL)
+
+
+        const userEmail = {
+          userEmail: this.$store.getters.USER_EMAIL
+        };
+        this.$amplitude.getInstance().setUserId(userEmail);
+        console.log(userEmail)
+
   
     this.$amplitude.getInstance().logEvent("page view home");
 

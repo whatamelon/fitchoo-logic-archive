@@ -112,8 +112,17 @@ button::-moz-focus-inner {
   100% { transform: translateX(0vw); }
 }
 @keyframes slide-right-out {
-  0% { transform: translateX(0);  }
-  100% { transform: translateX(100vw);  }
+  0% { transform: translateX(0); }
+  10% { transform: translateX(10vw); }
+  20% { transform: translateX(20vw); }
+  30% { transform: translateX(30vw); }
+  40% { transform: translateX(40vw); }
+  50% { transform: translateX(50vw); }
+  60% { transform: translateX(60vw); }
+  70% { transform: translateX(70vw); }
+  80% { transform: translateX(80vw); }
+  90% { transform: translateX(90vw); }
+  100% { transform: translateX(100vw); }
 }
 
 

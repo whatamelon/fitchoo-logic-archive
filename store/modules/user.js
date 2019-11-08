@@ -236,7 +236,7 @@ const USER = {
       commit("SET_USER_TOTAL", payload);
     },
 
-    setUserInfo: ({ commit, dispatch }) =>
+      setUserInfo: ({ commit, dispatch }) =>
       new Promise(async (resolve, reject) => {
         try {
           const response = await getUserInfoAPI();
@@ -258,7 +258,9 @@ const USER = {
           }
           reject(error);
         }
-      })
+      }),
+  
+  
   }
 };
 

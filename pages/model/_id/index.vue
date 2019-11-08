@@ -199,17 +199,18 @@ export default {
     "no-ssr": NoSSR
   },
   transition ( to, from  ) {
-    if (localStorage.getItem("previousPage")=="model" ) {
+    if (localStorage.getItem("previousPage")=="model" ||
+    localStorage.getItem("previousPage")=="modelLow" ||
+    localStorage.getItem("previousPage")=="modelMean" ||
+    localStorage.getItem("previousPage")=="modelHigh" ||
+   localStorage.getItem("backButton")=="1" ) {
       return 'slideRight'
     }
-    else if(localStorage.getItem("fromAnotherRouter")=="1") {
-      return 'nothing'
-    }
     else if (localStorage.getItem("previousPage")=="product-id") {
-      return 'slideLeft'
+      return 'slideRight'
     }
     else {
-      return 'nothing'
+      return 'slideLeft'
     }
   },
    
@@ -320,7 +321,7 @@ export default {
       await store.dispatch("setFollowingModels");
     }
 
-    store.dispatch("setFirstCategory", "001");
+    store.dispatch("setFirstCategory", "000");
 
     const followingModel = await store.getters.FOLLOWING_MODELS.filter(
       model => model.modelId == params.id

@@ -45,7 +45,41 @@ export default {
       }
       else if (this.$route.name.includes('product')) {
 
-       if (localStorage.getItem("recentProductId") != 0) {
+        const thisProductId = JSON.parse(localStorage.recentProductId);
+        console.log(thisProductId.length)
+       if (thisProductId.length == 1) {
+                   console.log("프로덕트가 1개야~");
+        const recentModelId = JSON.parse(localStorage.recentModelId);
+        const newSetModel = recentModelId[recentModelId.length -2];
+
+        const recentProductId = JSON.parse(localStorage.recentProductId);
+        const newSetProduct = recentProductId[recentProductId.length -1];
+
+        if (newSetModel == '' ||
+        newSetModel == null) {
+          console.log("어디냐");
+        localStorage.setItem("backButton","1");
+        this.$router.go(-1);
+        }
+        else {
+          console.log("푸로덕트1개 어디이이야~");
+        this.$store.dispatch("setModel", newSetModel);
+        localStorage.setItem("model", JSON.stringify(newSetModel));
+        this.$store.dispatch("setProductInfo", newSetProduct);
+        localStorage.setItem("product", JSON.stringify(newSetProduct));
+      
+        localStorage.setItem("backButton","1");
+        
+        this.$store.dispatch("startLoading");
+        setTimeout(() => {
+          this.$store.dispatch("endLoading");
+        }, 500);
+        this.$router.go(-1);
+        }
+        // }
+       }
+
+       else if (localStorage.getItem("recentProductId") != 0) {
         // const recentProductId = JSON.parse(localStorage.recentProductId);
         
         // recentProductId.pop();

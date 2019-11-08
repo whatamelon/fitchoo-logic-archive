@@ -2,9 +2,6 @@
 <transition>
   <main class="product-detail-container">
 
-    
-    <AppGoShop v-if="IS_GO_SHOP" />
-
     <AppSpinner v-if="IS_LOADING" />
 
         <div class="product-main">
@@ -153,21 +150,17 @@
 import { mapGetters, mapActions } from "vuex";
 import AppProductPageProduct from "@/components/App/AppProductPageProduct";
 import AppSpinner from "@/components/App/AppSpinner";
-import AppGoShop from "@/components/App/AppGoShop";
 
 export default {
   components: {
     AppProductPageProduct,
-    AppSpinner,
-    AppGoShop
+    AppSpinner
   },
 
   transition ( to, from  ) {
-    if(localStorage.getItem("routerStack") == null) {
-      return 'nothing'
-    }
-    else if (localStorage.getItem("routerStack").includes("model")) {
-      return 'slideRight'
+    if (localStorage.getItem("backButton")=="1") {
+      console.log("백버튼있습니다잉~")
+      return 'slideLeft'
     }
     else if (to.name == "home"
             || to.name == "collection"
@@ -177,10 +170,12 @@ export default {
             || from.name == "collection"
             || from.name == "collection1" 
             || from.name == "exhibition-id") {
+      console.log("백버튼은 어디이이이?")
       return 'slideRight'
     }
     else {
-      return 'nothing'
+      console.log("나도몰라~")
+      return 'slideRight'
     }
   },
 
@@ -198,7 +193,6 @@ export default {
 
   computed: {
     ...mapGetters([
-      "IS_GO_SHOP",
       "IS_LOADING",
       "IMAGE_URL",
       "MODEL_PRODUCTS",
@@ -363,6 +357,7 @@ export default {
   mounted() {
 
     if(localStorage.getItem("backButton") == "1") {
+      console.log("이게먼저냐?")
       localStorage.removeItem("backButton");
       const recentModelId = JSON.parse(localStorage.recentModelId);
     recentModelId.pop();
@@ -560,14 +555,7 @@ export default {
       }
 
       console.log("응페이지로갔어~");
-         this.$store.dispatch("startGoShop");
-          setTimeout(() => {
-          this.$store.dispatch("endGoShop");
-          }, 2000);
-
-          setTimeout(() => {
           window.open(linkUrl);
-          }, 2100);
     }
   },
 
@@ -583,7 +571,6 @@ export default {
     localStorage.removeItem('productCategory');
     }
     this.$store.dispatch("showLogo");
-    this.$store.dispatch("endGoShop");
     next();
   }
   };

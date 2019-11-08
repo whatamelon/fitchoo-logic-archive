@@ -4,11 +4,6 @@
 
     <AppSpinner v-if="IS_LOADING" />
 
-    <LoginAlertModal />
-    <!-- <AppDownloadModal /> -->
-
-    <HeightEditModal :title="'내 키를 입력해주세요.'" />
-
     <!-- No Following Models -->
     <div
       v-if=" FOLLOWING_MODELS.length === 0"
@@ -21,12 +16,8 @@
       <div 
       v-else
       class="model-divider">
-        <!-- <dir class="model-divider__flex">
-          <span class="height__title">내가 팔로우한 <br/> 모델 언니.</span>
-        </dir> -->
-
         <div
-          v-for="model in followingModelList"
+          v-for="model in following_models"
           :key="model.modelId"
           class="model-card-container"
            @click="toDetailPage(model)"
@@ -35,12 +26,11 @@
 
           <div class="case1" v-if ="Math.floor(Math.random()*3) + 1 == 1">
           <div class="model-card-title">
-            <!-- <span style="color: red;">#</span> -->
             {{ model.modelExp || "모델 설명" }}
           </div>
           <div class="image-container-one">
             <div v-if="model.imgList.length > 0" class="image-container-two">
-              <div v-if="isNew(model.uploadTime)" class="model__new">new</div>
+               <span v-if="model.isNew == 'true'" class="model__new" id="newModel">new</span>
               <img
                 class="model-card-main-image"
                 :src="IMAGE_URL + model.imgList[0].imgFile"
@@ -97,12 +87,11 @@
 
           <div class="case2" v-else-if ="Math.floor(Math.random()*3) + 1 == 2">
           <div class="model-card-title">
-            <!-- <span style="color: red;">#</span> -->
             {{ model.modelExp || "모델 설명" }}
           </div>
           <div class="image-container-one__case2">
             <div v-if="model.imgList.length > 0" class="image-container-two__case2">
-              <div v-if="isNew(model.uploadTime)" class="model__new">new</div>
+               <span v-if="model.isNew == 'true'" class="model__new" id="newModel">new</span>
               <img
                 class="model-card-main-image__case2"
                 :src="IMAGE_URL + model.imgList[0].imgFile"
@@ -175,12 +164,11 @@
 
         <div class="case3" v-else>
         <div class="model-card-title">
-            <!-- <span style="color: red;">#</span> -->
             {{ model.modelExp || "모델 설명" }}
           </div>
           <div class="image-container-one">
             <div v-if="model.imgList.length > 0" class="image-container-three__case3">
-              <div v-if="isNew(model.uploadTime)" class="model__new">new</div>
+               <span v-if="model.isNew == 'true'" class="model__new" id="newModel">new</span>
               <div class="image-container-four__case3">
                 <img
                   class="model-card-secondary-image__case3"
@@ -241,52 +229,26 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-
 import AppSpinner from "@/components/App/AppSpinner";
-
-import LoginAlertModal from "@/components/Modal/LoginAlertModal";
-// import AppDownloadModal from "@/components/Modal/AppDownloadModal";
-import InputModal from "@/components/Modal/InputModal";
 
 export default {
   components: {
     AppSpinner,
-    LoginAlertModal,
-    // AppDownloadModal,
-    HeightEditModal: InputModal
   },
-          transition: 'slideRight',
+  transition: 'slideRight',
 
   data() {
     return {
-      showLoginAlertModal: false,
-      height: localStorage.height
+      following_models : this.$store.getters.FOLLOWING_MODELS
     };
   },
 
   computed: {
     ...mapGetters([
       "IMAGE_URL",
-      "IS_LOGGED_IN",
       "IS_LOADING",
-      "USER_HEIGHT",
       "FOLLOWING_MODELS"
     ]),
-
-    hasHeight() {
-      return this.$store.getters.USER_HEIGHT ? true : false;
-    },
-
-    filteredModelList() {
-      return this.sortNewModelsFirst().filter(model => {
-        return !this.containsModel(model.modelId, this.followingModelList);
-      });
-    },
-
-    followingModelList() {
-      return this.$store.getters.FOLLOWING_MODELS;
-    },
-
     
   },
 
@@ -300,91 +262,34 @@ export default {
       limit: 999
     };
 
-    if (localStorage.getItem("accessToken")) {
       await store.dispatch("setFollowingModels");
-    }
+    
 
 
     return {
-      products: store.getters.EXHIBITION_PRODUCTS,
-      models : store.getters.MODELS,
-      models_remain : store.getters.MODELS_REMAIN
+      following_models : store.getters.FOLLOWING_MODELS
     };
   },
 
   created() {
-    console.log(this.sameHeightModels);
+    const userProperties = {
+      followingModels: this.$store.getters.FOLLOWING_MODELS.length
+    };
     this.$store.dispatch("setCurrentRoute", this.$route.path);
+    this.$amplitude.getInstance().setUserProperties(userProperties);
 
     setTimeout(() => {
       this.$store.dispatch("endLoading");
-    }, 100);
+    }, 500);
   },
 
   mounted() {
     this.$store.dispatch("setHeaderTitle", "내가 팔로우한 모델");
     this.$store.dispatch("hideLogo");
-
-    // by shlee for app : avoid 'openAppDownloadModal' popup
-    // alert("check OS type 3 (index vue): " + window.OsType);
-    // if (!(window.OsType == "android" || window.OsType == "ios")) {
-    //   if (!localStorage.getItem("lastTime")) {
-    //     this.$amplitude.getInstance().logEvent("view modal CTA-app");
-    //     this.$store.dispatch("openAppDownloadModal");
-    //   }
-    // }
-
-    const lastTime = localStorage.getItem("lastTime");
-    const now = new Date().getTime();
-    this.timeChecker(lastTime, now);
   },
 
   methods: {
     ...mapActions(["openModal"]),
-
-  
-    timeChecker(lastTime, currentTime) {
-      const oneDay = 86400000;
-      if (lastTime - currentTime > oneDay) {
-        localStorage.removeItem("lastTime");
-      }
-    },
-
-
-    sortNewModelsFirst() {
-      let models = this.$store.getters.MODELS;
-      models = models.sort((a, b) => {
-        return (
-          this.parseTimestamp(b.uploadTime) - this.parseTimestamp(a.uploadTime)
-        );
-      });
-      return models;
-    },
-
-    containsModel(modelId, followingModelList = []) {
-      for (let i = 0; i < followingModelList.length; i++) {
-        if (followingModelList[i].modelId === modelId) {
-          return true;
-        }
-      }
-      return false;
-    },
-
-    hideModal() {
-      window.scrollTo(0, 0);
-      this.showLoginAlertModal = false;
-    },
-
-
-    parseTimestamp(date) {
-      date = date.substring(0, 10);
-      const splitDate = date.split("-");
-      const year = parseInt(splitDate[0]);
-      const month = parseInt(splitDate[1]);
-      const day = parseInt(splitDate[2]);
-      const timestampParsedDate = new Date(year, month - 1, day).getTime();
-      return timestampParsedDate;
-    },
 
     isNew(updatedAt) {
       const timestampParsedUpdatedAt = this.parseTimestamp(updatedAt);
@@ -404,16 +309,18 @@ export default {
 
       this.$store.dispatch("setModel", model);
       localStorage.setItem("model", JSON.stringify(model));
+      localStorage.setItem("modelHeightClick","1");
 
-      const path = "/model/" + model.modelId;
-      this.$router.push(path);
+      const recentModelId = JSON.parse(localStorage.recentModelId);
+      recentModelId.push(model);
+      localStorage.recentModelId = JSON.stringify(recentModelId);
+      
+      this.$router.push("/model/" + model.modelId);
     }
   },
 
-  async beforeRouteLeave(to, from, next) {
-    this.$store.dispatch("showLogo");
-    await this.$store.dispatch("startLoading");
-    this.$store.dispatch("resetModels");
+   beforeRouteLeave(to, from, next) {
+     next();
   }
 };
 </script>

@@ -92,6 +92,13 @@ export default {
       }
 
       await this.$store.dispatch("getModels", height);
+      
+        const userProperties = {
+          userHeight: this.height
+        };
+        this.$amplitude.getInstance().setUserProperties(userProperties);
+        console.log(userProperties)
+
       this.$store.dispatch("closeModal");
 
       window.scrollTo(0, 0);

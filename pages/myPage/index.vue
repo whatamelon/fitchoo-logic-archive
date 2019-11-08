@@ -1,24 +1,10 @@
 <template>
 <transition>
   <main class="my-page-container">
-<!-- <noscript style="
-    display: none;
-    visibility: hidden;
-    height: 0px;
-    width: 0px;
-    max-width: 0px;
-    max-height: 0px;
-    border: none;
-">
-  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5KW535K"
-  height="0" width="0" left="0" top="0"
-  style="visibility:hidden;display:none;border:none;height:0px;width:0px;max-width: 0px;max-height: 0px;">
-  </iframe>
-</noscript> -->
-  <AppSpinner3 v-if="!IS_WAIT"/>
+
+  <!-- <AppSpinner3 v-if="!IS_WAIT"/> -->
     <AppLoginSheet />
     <HeightEditModal :title="'내 키를 입력해주세요.'" />
-    <LoginAlertModal />
 
     <div v-if="!IS_LOGGED_IN" class="not-logged-in">
       <h1 class="not-logged-in__title">
@@ -84,7 +70,7 @@
 import AppLoginSheet from "@/components/App/AppLoginSheet";
 import InputModal from "@/components/Modal/InputModal";
 import LoginAlertModal from "@/components/Modal/LoginAlertModal";
-import AppSpinner3 from "@/components/App/AppSpinner3";
+// import AppSpinner3 from "@/components/App/AppSpinner3";
 
 import { mapGetters, mapActions } from "vuex";
 
@@ -124,7 +110,7 @@ export default {
     AppLoginSheet,
     HeightEditModal: InputModal,
     LoginAlertModal,
-    AppSpinner3
+    // AppSpinner3
   },
 
   data() {
@@ -136,7 +122,7 @@ export default {
     "IS_LOGGED_IN", 
     "USER_HEIGHT", 
     "USER_EMAIL",
-    "IS_WAIT"
+    // "IS_WAIT"
     ])
   },
 
@@ -151,7 +137,7 @@ export default {
 
   created() {
     
-    this.$store.dispatch("startWait");
+    // this.$store.dispatch("startWait");
 
         const recentModelId = JSON.parse(localStorage.recentModelId);
         recentModelId.length = 0;
@@ -172,12 +158,13 @@ export default {
     this.$store.dispatch("setCurrentRoute", this.$route.path);
 
     window.addEventListener("load", this.getNaverInfo);
+
+    setTimeout(() => {
+      this.$store.dispatch("endLoading");
+    }, 100);
   },
 
   mounted() {
-    setTimeout(() => {
-      this.$store.dispatch("endLoading");
-    }, 500);
 
     if (localStorage.getItem("wantLogin")) {
       this.$store.dispatch("openLoginSheet");

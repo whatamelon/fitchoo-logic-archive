@@ -118,16 +118,10 @@ export default {
   },
 
   created() {
-    const userProperties = {
-      savedProducts: this.$store.getters.SAVED_PRODUCTS.length
-    };
     this.$store.dispatch("setCurrentRoute", this.$route.path);
     if (process.browser) {
       window.addEventListener("scroll", this.handleScroll);
     }
-
-    this.$amplitude.getInstance().setUserProperties(userProperties);
-    this.$amplitude.getInstance().logEvent("page view saved");
   },
 
   methods: {

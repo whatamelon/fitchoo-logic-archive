@@ -48,8 +48,7 @@ export default {
   },
 
   transition ( to, from  ) {
-    if (localStorage.getItem("previousPage")=="model-id" ||
-        localStorage.getItem("previousPage")=="exhibition-id" ) {
+    if (from.name=="model-id") {
       return 'slideLeft'
     }
     else {
