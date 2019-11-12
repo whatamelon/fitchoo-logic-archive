@@ -1,0 +1,77 @@
+        <!-- <div class="banner" id="mainBanner">
+            <img src="/banner/exhibition.jpg" class="banner__image"
+            loading="lazy"
+             @click="goToExhibition()"
+             v-if ="Math.floor(Math.random()*8) + 1 == 1"
+             />
+             <img src="/banner/exhibition_HLine.jpg" class="banner__image"
+            loading="lazy"
+             @click="goToExhibition('00re23')"
+             v-else-if ="Math.floor(Math.random()*8) + 1 == 2"
+             />
+             <img src="/banner/exhibition_hiwaist.jpg" class="banner__image"
+            loading="lazy"
+             @click="goToExhibition('15re22')"
+             v-else-if ="Math.floor(Math.random()*8) + 1 == 3"
+             />
+             <img src="/banner/myHeight.jpg" class="banner__image"
+            loading="lazy"
+             @click="goToCollection()"
+             v-else-if ="Math.floor(Math.random()*8) + 1 == 4"
+             />
+             <img src="/banner/jane.jpg" class="banner__image"
+            loading="lazy"
+             @click="goToLike("182")"
+             v-else-if ="Math.floor(Math.random()*8) + 1 == 5"
+             />
+             <img src="/banner/backMinJeong.jpg" class="banner__image"
+            loading="lazy"
+             @click="goToLike("190")"
+             v-else-if ="Math.floor(Math.random()*8) + 1 == 6"
+             />
+             <img src="/banner/soyeon.jpg" class="banner__image"
+            loading="lazy"
+             @click="goToLike('188')"
+             v-else-if ="Math.floor(Math.random()*8) + 1 == 7"
+             />
+             <img src="/banner/like.jpg" class="banner__image"
+            loading="lazy"
+             @click="goToLike()"
+             v-else-if ="Math.floor(Math.random()*8) + 1 == 8"
+             />
+        </div> -->
+
+
+
+                var numbers = [];
+                var pickNumbers = 8;
+                var insertCur;
+                var searchCur;
+                var i;
+                 
+                for(insertCur=0; insertCur < pickNumbers ; insertCur++){
+                    numbers[insertCur] = Math.floor(Math.random() * 8) + 1;
+ 
+                    for(searchCur=0; searchCur < insertCur; searchCur ++){
+                        if(numbers[insertCur] == numbers[searchCur]){
+                            insertCur--; 
+                            break;
+                        }
+                    }
+                }
+                var result = ""; 
+                for(i = 0; i < pickNumbers; i ++){
+                    if(i > 0){
+                        result += ", ";
+                    }
+                    result += numbers[i];
+                }
+
+      var bannerNumber0 = 13*numbers[0];
+
+      var plusBanner0 = '<div class="banner" id="mainBanner"><img src="/banner/exhibition.jpg" class="banner__image" loading="lazy" @click="goToExhibition()"/></div>';
+
+      document.getElementsByClassName('model-card-container')[bannerNumber0].innerHTML += plusBanner0;
+
+	중복 제거한 랜덤함수를 받아서 div에 element를 추가해주는 코드입니다.
+	현재 mounted에 코딩해놓았습니다.

@@ -1,0 +1,56 @@
+	10.23
+		제품 상세페이지 -> 모델 상세페이지 -> .... 서핑 로직
+
+		
+		recentModelId Array / recentProductId Array 만들기
+
+		router-plugin에서 얘네들 웹스토리지에 저장
+
+		push하는 곳 -> product에서 router로 들어가는 곳.
+				model에서 router로 들어가는 곳.
+
+		그 다음에 들어갈 때마다 하나씩 array push해주기.
+
+		router가 /model/ 이면 modelId array
+		router가 /product/ 면 productId array
+
+		
+		뒤로 갈때마다 array에 맨 끝에 있는 값 가져와서 뿌려주기
+
+		previousPage가 model-id or product-id면 array에서 가져와서 뿌려주면 됨.
+
+		model이면 setModel해주고, product면 setProductInfo 해주기
+		해주고 array pop 으로 배열 맨끝에 있는 값 없애기
+
+		서핑하다가 네비바로 들어간다면, array 값 전부 없애기.
+
+
+
+		-------------------------------------------------------------------
+
+
+		새로운 아이디어
+
+		모델 ID / 상품 ID 들어갈 때마다 routerStack을 +1해주기
+
+		이러고 뒤로가기 버튼 클릭도 할 때마다 stack +1 해주기
+
+		그리고 각 상세에서 뒤로갈때, 얘가 몇번 라우팅 됐는지 확인하고
+
+		뒤로가기를 얼마나 눌렀는지 확인 후, 뒤로가기 만큼 차감된 값 만큼 routerStack 체크해서
+
+		뒤로갈 때마다 routerStack은 1씩 차감.
+
+		모델  or 상품 값 불러오고 뿌려주기.
+
+
+		ex ) 모델 4번 들어가고 상품 11번 들어간 상태
+
+		뒤로가기 했을때,
+
+
+		일단 지금은,
+
+		모델상세 빽 -> 무조건 상품
+
+		상품상세 빽 -> 상품 , 모델

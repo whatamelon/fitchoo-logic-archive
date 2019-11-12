@@ -1,0 +1,18 @@
+10.15	todoList
+
+		1. 찜 / 최근 본 상품 나누기
+
+		2. vue lazyload 적용
+
+		3. 이미지 병렬 처리
+
+
+		배너로직 내 생각
+
+		배너를 쭈루룩 불러오고, 얘네들을 자바스크립트로 8개 랜덤 나열함.
+		랜덤 나열한 애들은 각 클래스의 몇 번째 순서에다 innerHTML로 넣어주는 것을 생각중.
+
+		1. 배너 ( element )를 쭈루룩 불러오기
+		2. 8개 랜덤 나열하기
+		3. 각 class 순서에다가 넣어주기
+			-> var e = document.getElementsByClass( ' ' )[ 13 * i ].innerHTML;
