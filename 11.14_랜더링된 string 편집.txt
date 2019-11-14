@@ -1,0 +1,29 @@
+11.14 이미 랜더링된 string 편집
+
+mounted() {
+      var meanModelParse = Object.values(this.$store.getters.MODELS_MEAN_HEIGHT);
+
+      for(var i=0; i < meanModelParse.length; i++) {
+       var thisWhat = document.getElementsByClassName("model-explain")[i].innerHTML;
+       console.log(thisWhat)
+        thisWhat = thisWhat.replace(/(&lt;br&gt;)/gi,"");
+        console.log(thisWhat)
+        var thisWhat1 = document.getElementsByClassName("model-explain")[i]
+        thisWhat1.innerHTML = thisWhat
+      }
+},
+
+ methods: {
+
+    expCustom(){
+      var meanModelParse = Object.values(this.$store.getters.MODELS_MEAN_HEIGHT);
+
+      for(var i=0; i < meanModelParse.length; i++) {
+       var thisWhat = document.getElementsByClassName("model-explain")[i].innerHTML;
+       console.log(thisWhat)
+        thisWhat = thisWhat.replace(/(&lt;br&gt;)/gi,"");
+        console.log(thisWhat)
+        var thisWhat1 = document.getElementsByClassName("model-explain")[i]
+        thisWhat1.innerHTML = thisWhat
+      }
+   },
