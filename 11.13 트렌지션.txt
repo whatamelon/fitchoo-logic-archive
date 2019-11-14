@@ -1,0 +1,40 @@
+	11.13 뎁스 트렌지션
+
+		뎁스로 들어갈 때는 slideRight
+		뎁스에서 나올 때는 slideLeft
+
+		app.js에 depthGo 설정하기,
+		true = depthIn
+		false = depthOut
+
+		뎁스 들어갈 때는 depthIn dispatch 하고,
+		뎁스에서 나올 때는 depthOut dispatch 해주기
+		
+		
+		toModelPage or toDetailPage에 dispatch true 넣어주고,
+		goToBack에는 dispatch false 넣어주는게 깔끔할 듯.
+
+
+  transition (to) {
+    if (localStorage.getItem("backButton")){
+    return 'slideLeft'
+    }
+    else if (to.name == "model-id" ||
+              to.name == "product-id" ||
+              to.name == "exhibition-id") {
+    return 'slideRight'
+    }
+    else if(to.name == "model" ||
+    to.name == "modelLow" ||
+    to.name == "modelMean" ||
+    to.name == "modelHigh" ||
+    to.name == "home" ||
+    to.name == "collection" ||
+    to.name == "collection1" ||
+    to.name == "exhibition" ||
+    localStorage.getItem("previousPage") == "exhibition-id" ||
+    localStorage.getItem("previousPage") == "product-id" ||
+    localStorage.getItem("previousPage") == "model-id") {
+      return "nothing"
+    }
+  },
