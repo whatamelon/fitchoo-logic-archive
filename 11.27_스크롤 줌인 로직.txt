@@ -22,3 +22,12 @@
 	left: 50%;
   max-width: 200%;
 }
+
+
+
+  -webkit-overflow-scrolling: touch; -> 이 css 코드를 전역적으로 설정하게 되면 모든 스크롤에 ios 특유의 bounce 터치가 적용된다.
+				상하스크롤시에도 상단에 공백이 생기게 된다.
+				이 코드는 ios 스크롤이 뻑뻑하게 작동할 때만, 해당 엘리먼트에 넣도록 하자.
+
+
+
