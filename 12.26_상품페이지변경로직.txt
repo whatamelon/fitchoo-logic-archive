@@ -1,0 +1,15 @@
+12.26 상품 업데이트
+	
+	모델상세 = 기존 collection API 사용
+	상품탭 = 새로운 item API 사용
+
+	1. 1뎁스 카테고리 url 설정 - itemcat
+	2. 2뎁스 카테고리 url 설정 - item
+	3. 2뎁스 진입시 2단계 카테고리 설정
+	4. 2뎁스에서 url 변경시 1뎁스로 이동
+	5. item 페이지에서 v-show로 상태관리 해주면서 보여주기
+	
+	- 팔로우한 모델 상품 보기
+	 클릭하면, setFollowModel true로 바뀌고,
+	 if문으로 api 분기태워주면됨.
+	 여기 if문은 item asyncData에 있는 if문.

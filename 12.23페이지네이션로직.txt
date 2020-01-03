@@ -1,0 +1,13 @@
+12.23
+	pagination 로직
+
+	collection에 들어오기 전에 totCnt 를 받음
+	totCnt / 30  + 1 로 페이지 수 dispatch
+
+	default 페이지 = 1
+	이전 or 다음 -> 할 때마다 현재 페이지 번호 확인 후, 현재페이지번호 + 1 or -1 로 dispatch
+
+	상품은 페이지 번호를 받으면, offset = 30 * ( 페이지번호 -1 )
+	offset 설정 후, collection Product 가져오기.
+
+	모든 카테고리 설정시마다 해당
